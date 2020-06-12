@@ -1,5 +1,5 @@
-sudo : required
-services :
+sudo: required
+services:
   - docker
 before -install:
   - docker build -t changgyunkim/react-test -f ./client/Dockerfile.dev ./client
@@ -10,11 +10,10 @@ after_sucess:
   - docker build -t changgyunkim/multi-nginx ./nginx
   - docker build -t changgyunkim/multi-server ./server
   - docker build -t changgyunkim/multi-worker ./worker
-
-# log in docker CLI
+  # log in docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-# take images and push them to docker hub
-  - docker push -t changgyunkim/multi-client ./client
-  - docker push -t changgyunkim/multi-nginx ./nginx
-  - docker build -t changgyunkim/multi-server ./server
-  - docker build -t changgyunkim/multi-server ./worker
+  # take images and push them to docker hub
+  - docker push changgyunkim/multi-client
+  - docker push changgyunkim/multi-nginx
+  - docker push changgyunkim/multi-server
+  - docker push changgyunkim/multi-server
