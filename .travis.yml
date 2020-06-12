@@ -2,19 +2,19 @@ sudo : required
 services :
   - docker
 before -install:
-  - docker build -t ChanggyunKIMreact-test -f ./client/Dockerfile.dev ./client
+  - docker build -t changgyunKIMreact-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run ChanggyunKIMreact-test npm test -- --coverage
+  - docker run changgyunKIMreact-test npm test -- --coverage
 after_sucess:
-  - docker build -t ChanggyunKIM/multi-client ./client
-  - docker build -t ChanggyunKIM/multi-nginx ./nginx
-  - docker build -t ChanggyunKIM/multi-server ./server
-  - docker build -t ChanggyunKIM/multi-worker ./worker
+  - docker build -t changgyunKIM/multi-client ./client
+  - docker build -t changgyunKIM/multi-nginx ./nginx
+  - docker build -t changgyunKIM/multi-server ./server
+  - docker build -t changgyunKIM/multi-worker ./worker
 
 # log in docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # take images and push them to docker hub
-  - docker push -t shunabe1234/multi-client ./client
-  - docker push -t shunabe1234/multi-nginx ./nginx
-  - docker build -t shunabe1234/multi-server ./server
-  - docker build -t shunabe1234/multi-server ./worker
+  - docker push -t changgyunKIM/multi-client ./client
+  - docker push -t changgyunKIM/multi-nginx ./nginx
+  - docker build -t changgyunKIM/multi-server ./server
+  - docker build -t changgyunKIM/multi-server ./worker
