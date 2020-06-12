@@ -10,8 +10,10 @@ after_sucess:
   - docker build -t changgyunkim/multi-nginx ./nginx
   - docker build -t changgyunkim/multi-server ./server
   - docker build -t changgyunkim/multi-worker ./worker
+  
   # log in docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
   # take images and push them to docker hub
   - docker push changgyunkim/multi-client
   - docker push changgyunkim/multi-nginx
