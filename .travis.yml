@@ -1,0 +1,20 @@
+sudo : required
+services :
+  - docker
+before -install:
+  - docker build -t ChanggyunKIMreact-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run ChanggyunKIMreact-test npm test -- --coverage
+after_sucess:
+  - docker build -t ChanggyunKIM/multi-client ./client
+  - docker build -t ChanggyunKIM/multi-nginx ./nginx
+  - docker build -t ChanggyunKIM/multi-server ./server
+  - docker build -t ChanggyunKIM/multi-worker ./worker
+
+# log in docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# take images and push them to docker hub
+  - docker push -t shunabe1234/multi-client ./client
+  - docker push -t shunabe1234/multi-nginx ./nginx
+  - docker build -t shunabe1234/multi-server ./server
+  - docker build -t shunabe1234/multi-server ./worker
